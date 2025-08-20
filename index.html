@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuendeMagico</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '918315006732585');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=918315006732585&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    html, body { height:100%; }
+    body { background:#000; }
+
+    .landing{
+      position:relative;
+      width:100%; height:100%;
+      background-image:url('fondo1.jpg');
+      background-size:cover; background-position:center;
+      display:flex; justify-content:center; align-items:center;
+      padding:20px;
+    }
+
+    /* Card centrada encima del fondo, reemplaza el botón WSP */
+    .lead-card{
+      position:absolute;
+      top:30%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      width: min(92vw, 360px);
+      display:flex; flex-direction:column; gap:12px;
+      background: rgba(0,0,0,0.45);
+      border:2px solid #fff3b0;
+      border-radius:16px;
+      padding:16px;
+      backdrop-filter: blur(3px);
+      box-shadow:0 0 20px rgba(255,215,0,0.35);
+    }
+
+    .lead-title{
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+      color:#fffbea;
+      letter-spacing:0.3px;
+      text-shadow:0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .field{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .label{
+      font-size:13px; color:#fffbea; font-weight:700;
+    }
+    .input{
+      width:100%;
+      height:48px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:1.5px solid #fff3b0;
+      background: rgba(255,255,255,0.1);
+      color:#fff; outline:none;
+    }
+    .input::placeholder{ color:rgba(255,255,255,0.6); }
+
+    .btn{
+      width:100%;
+      height:55px;
+      font-size:16px; font-weight:900;
+      color:#fffbea;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border:2px solid #fff3b0;
+      border-radius:30px;
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+      box-shadow:0 0 20px rgba(255,215,0,0.6);
+      display:inline-flex; align-items:center; justify-content:center;
+      text-transform:uppercase; letter-spacing:.3px;
+    }
+    .btn:hover{ transform:scale(1.03); box-shadow:0 0 26px rgba(255,215,0,0.8); }
+    .btn:disabled{
+      opacity:.55; cursor:not-allowed;
+      transform:none; box-shadow:0 0 10px rgba(255,215,0,0.25);
+      filter:grayscale(20%);
+    }
+
+    .hint{
+      font-size:12px; color:#fffbea; opacity:.8; text-align:center;
+    }
+
+    @media (max-height:620px){
+      .lead-card{ top:40%; }
+    }
+  </style>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNYE2LLEWW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-SNYE2LLEWW');
+  </script>
+</head>
+<body>
+  <div class="landing">
+    <!-- FORMULARIO (sin WhatsApp) -->
+    <form id="leadForm" class="lead-card" novalidate>
+      <div class="lead-title">Completá y reclamá tu bono</div>
+
+      <div class="field">
+        <label class="label" for="apodo">Apodo / Nombre</label>
+        <input class="input" id="apodo" name="apodo" type="text" placeholder="Ej: Fede" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="numero">Número</label>
+        <input class="input" id="numero" name="numero" type="tel" inputmode="tel"
+               placeholder="Ej: +54 11 1234 5678" required>
+      </div>
+
+      <button id="btnEnviar" class="btn" type="submit" disabled>Quiero mi 100% de bono</button>
+      <div class="hint">El botón se habilita cuando completes ambos campos.</div>
+    </form>
+  </div>
+
+  <script>
+    // ---------- CONFIG: PONÉ TU GOOGLE FORM ----------
+    // Reemplazá esta URL por TU endpoint de Google Forms (termina en /formResponse)
+    const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/XXXXXXXXXXXXXXX/formResponse";
+
+    // Reemplazá estos entry IDs por los tuyos (Nombre/Apodo y Número)
+    const ENTRY_APODO  = "entry.111111111";
+    const ENTRY_NUMERO = "entry.222222222";
+    // --------------------------------------------------
+
+    const form   = document.getElementById('leadForm');
+    const apodo  = document.getElementById('apodo');
+    const numero = document.getElementById('numero');
+    const btn    = document.getElementById('btnEnviar');
+
+    // Habilitar botón sólo si ambos campos tienen contenido
+    const validate = () => {
+      const ok = apodo.value.trim().length > 0 && numero.value.trim().length > 0;
+      btn.disabled = !ok;
+      return ok;
+    };
+    apodo.addEventListener('input', validate);
+    numero.addEventListener('input', validate);
+
+    // Opcional: bloqueo de Enter si falta completar
+    form.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && btn.disabled) e.preventDefault();
+    });
+
+    // Normalizar teléfono simple
+    const normalizePhone = (str) => str.replace(/\s+/g, ' ').trim();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const data = new FormData();
+      data.append(ENTRY_APODO, apodo.value.trim());
+      data.append(ENTRY_NUMERO, normalizePhone(numero.value));
+
+      // Track en Meta/GA si querés
+      try { fbq && fbq('track', 'Lead'); } catch(e){}
+      try { gtag && gtag('event','lead_submit'); } catch(e){}
+
+      try {
+        await fetch(GOOGLE_FORM_ACTION, { method:'POST', body:data, mode:'no-cors' });
+
+        // UX: limpiar y feedback
+        form.reset();
+        btn.disabled = true;
+        alert('¡Listo! Guardamos tus datos. Te vamos a escribir por WhatsApp.');
+      } catch (err) {
+        console.error(err);
+        alert('Hubo un error al enviar. Probá de nuevo en un momento.');
+      }
+    });
+  </script>
+</body>
+</html>
