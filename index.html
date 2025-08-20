@@ -230,6 +230,34 @@
         alert('Hubo un error al enviar. Probá de nuevo.');
       }
     });
+
+ // >>> FORMATEO AUTOMÁTICO ARGENTINO <<<
+  numero.addEventListener('input', (e) => {
+    // sacar todo lo que no sea número
+    let value = e.target.value.replace(/\D/g, '');
+
+    // siempre arrancamos con +54 9
+    if (!value.startsWith("549")) {
+      value = "549" + value;
+    }
+
+    // +54 9 11-1234-5678
+    let formatted = "+54 9";
+
+    if (value.length > 3) {
+      formatted += " " + value.slice(3,5);   // código de área (ej: 11)
+    }
+    if (value.length > 5) {
+      formatted += "-" + value.slice(5,9);  // primeros 4 del número
+    }
+    if (value.length > 9) {
+      formatted += "-" + value.slice(9,13); // últimos 4
+    }
+
+    e.target.value = formatted;
+  });
+  // >>> FIN FORMATEO <<<
+    
   </script>
 </body>
 </html>
