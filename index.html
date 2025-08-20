@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DuendeMagico</title>
 
   <!-- Google Fonts -->
@@ -21,142 +21,178 @@
   fbq('init', '918315006732585');
   fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=918315006732585&ev=PageView&noscript=1"/></noscript>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=918315006732585&ev=PageView&noscript=1"/>
+  </noscript>
   <!-- End Meta Pixel Code -->
-
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    html, body { height:100%; }
-    body { background:#000; }
-
-    .landing{
-      position:relative;
-      width:100%; height:100%;
-      background-image:url('fondo1.jpg');
-      background-size:cover; background-position:center;
-      display:flex; justify-content:center; align-items:center;
-      padding:20px;
-    }
-
-    /* Card centrada encima del fondo, reemplaza el botón WSP */
-    .lead-card{
-      position:absolute;
-      top:30%;
-      left:50%;
-      transform:translate(-50%, -50%);
-      width: min(92vw, 360px);
-      display:flex; flex-direction:column; gap:12px;
-      background: rgba(0,0,0,0.45);
-      border:2px solid #fff3b0;
-      border-radius:16px;
-      padding:16px;
-      backdrop-filter: blur(3px);
-      box-shadow:0 0 20px rgba(255,215,0,0.35);
-    }
-
-    .lead-title{
-      text-align:center;
-      font-size:18px;
-      font-weight:900;
-      color:#fffbea;
-      letter-spacing:0.3px;
-      text-shadow:0 1px 2px rgba(0,0,0,0.4);
-    }
-
-    .field{
-      display:flex; flex-direction:column; gap:6px;
-    }
-    .label{
-      font-size:13px; color:#fffbea; font-weight:700;
-    }
-    .input{
-      width:100%;
-      height:48px;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1.5px solid #fff3b0;
-      background: rgba(255,255,255,0.1);
-      color:#fff; outline:none;
-    }
-    .input::placeholder{ color:rgba(255,255,255,0.6); }
-
-    .btn{
-      width:100%;
-      height:55px;
-      font-size:16px; font-weight:900;
-      color:#fffbea;
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      border:2px solid #fff3b0;
-      border-radius:30px;
-      cursor:pointer;
-      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
-      box-shadow:0 0 20px rgba(255,215,0,0.6);
-      display:inline-flex; align-items:center; justify-content:center;
-      text-transform:uppercase; letter-spacing:.3px;
-    }
-    .btn:hover{ transform:scale(1.03); box-shadow:0 0 26px rgba(255,215,0,0.8); }
-    .btn:disabled{
-      opacity:.55; cursor:not-allowed;
-      transform:none; box-shadow:0 0 10px rgba(255,215,0,0.25);
-      filter:grayscale(20%);
-    }
-
-    .hint{
-      font-size:12px; color:#fffbea; opacity:.8; text-align:center;
-    }
-
-    @media (max-height:620px){
-      .lead-card{ top:40%; }
-    }
-  </style>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNYE2LLEWW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config', 'G-SNYE2LLEWW');
+    gtag('js', new Date());
+    gtag('config', 'G-SNYE2LLEWW');
   </script>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    html,body{height:100%;}
+    body.noscroll{overflow:hidden;}
+
+    .landing{
+      position:relative;width:100%;height:100%;
+      background-image:url('fondo1.jpg');
+      background-size:cover;background-position:center;
+      display:flex;justify-content:center;align-items:center;
+    }
+
+    /* Botón dorado (mismo look) */
+    .button{
+      position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);
+      width:283px;height:55px;line-height:50px;text-align:center;
+      font-size:20px;font-weight:900;color:#fffbea;white-space:nowrap;
+      background:linear-gradient(135deg,#FFD700,#FFA500);
+      border:2px solid #fff3b0;border-radius:30px;text-decoration:none;
+      cursor:pointer;transition:all .3s ease;display:inline-flex;
+      align-items:center;justify-content:center;gap:0;
+      box-shadow:0 0 20px rgba(255,215,0,.6);
+    }
+    .button:hover{
+      background:linear-gradient(135deg,#ffcc00,#ff9900);
+      box-shadow:0 0 25px rgba(255,215,0,.8);
+      transform:translate(-50%,-50%) scale(1.05);
+    }
+
+    /* Overlay + Modal */
+    .overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.6);
+      display:flex;align-items:center;justify-content:center;
+      visibility:hidden;opacity:0;transition:.25s ease;
+    }
+    .overlay.active{visibility:visible;opacity:1;}
+
+    .modal{
+      width:min(92vw,360px);padding:18px;border-radius:16px;
+      background:rgba(0,0,0,.8);border:2px solid #fff3b0;
+      box-shadow:0 0 20px rgba(255,215,0,.6);
+      animation:pop .25s ease;
+    }
+    @keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+
+    .title{color:#fffbea;text-align:center;font-weight:900;margin-bottom:10px;}
+    .field{margin-bottom:12px;}
+    .label{display:block;color:#fffbea;font-weight:700;font-size:13px;margin-bottom:6px;}
+    .input{
+      width:100%;height:48px;padding:10px 14px;border-radius:10px;
+      border:1.5px solid #fff3b0;background:rgba(255,255,255,.1);color:#fff;outline:none;
+    }
+    .input::placeholder{color:rgba(255,255,255,.6)}
+    .btn{
+      width:100%;height:55px;font-size:16px;font-weight:900;
+      color:#fffbea;background:linear-gradient(135deg,#FFD700,#FFA500);
+      border:2px solid #fff3b0;border-radius:30px;cursor:pointer;
+      transition:.2s;box-shadow:0 0 20px rgba(255,215,0,.6);
+      text-transform:uppercase;letter-spacing:.3px;
+    }
+    .btn:hover{transform:scale(1.03)}
+    .btn:disabled{opacity:.55;cursor:not-allowed;transform:none;filter:grayscale(20%)}
+    .hint{font-size:12px;color:#fffbea;opacity:.8;text-align:center;margin-top:6px;}
+
+    .actions{margin-top:10px;display:flex;gap:10px}
+    .ghost{
+      flex:1;height:44px;border-radius:10px;border:1.5px solid #fff3b0;
+      background:transparent;color:#fffbea;font-weight:700;cursor:pointer;
+    }
+
+    /* Mensaje de éxito */
+    .success{
+      display:none;text-align:center;color:#fffbea;font-weight:700;padding:12px 4px;
+    }
+    .success.show{display:block;}
+  </style>
 </head>
 <body>
   <div class="landing">
-    <!-- FORMULARIO (sin WhatsApp) -->
-    <form id="leadForm" class="lead-card" novalidate>
-      <div class="lead-title">Completá y reclamá tu bono</div>
+    <!-- SOLO botón al inicio -->
+    <button id="openBtn" class="button" aria-haspopup="dialog" aria-controls="leadOverlay">
+      OBTENE TU BONO AHORA
+    </button>
+  </div>
 
-      <div class="field">
-        <label class="label" for="apodo">Apodo / Nombre</label>
-        <input class="input" id="apodo" name="apodo" type="text" placeholder="Ej: Fede" required>
-      </div>
+  <!-- Modal con formulario -->
+  <div id="leadOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modalCard">
+      <div class="title" id="modalTitle">Completá y reclamá tu bono</div>
 
-      <div class="field">
-        <label class="label" for="numero">Número</label>
-        <input class="input" id="numero" name="numero" type="tel" inputmode="tel"
-               placeholder="Ej: +54 11 1234 5678" required>
-      </div>
+      <form id="leadForm" novalidate>
+        <div class="field">
+          <label class="label" for="apodo">Apodo / Nombre</label>
+          <input class="input" id="apodo" type="text" placeholder="Ej: Fede" autocomplete="name" required>
+        </div>
 
-      <button id="btnEnviar" class="btn" type="submit" disabled>Quiero mi 100% de bono</button>
-      <div class="hint">El botón se habilita cuando completes ambos campos.</div>
-    </form>
+        <div class="field">
+          <label class="label" for="numero">Número</label>
+          <input class="input" id="numero" type="tel" inputmode="tel"
+                 placeholder="Ej: +54 11 1234 5678"
+                 pattern="^[0-9+()\\s-]{6,20}$" required>
+        </div>
+
+        <button id="btnEnviar" class="btn" type="submit" disabled>Quiero mi 100% de bono</button>
+        <div class="hint">El botón se habilita cuando completes ambos campos.</div>
+
+        <div class="actions">
+          <button type="button" id="cancelBtn" class="ghost">Cancelar</button>
+        </div>
+
+        <div id="successMsg" class="success">✔ ¡Listo! Guardamos tus datos. Te vamos a escribir.</div>
+      </form>
+    </div>
   </div>
 
   <script>
-    // ---------- CONFIG: PONÉ TU GOOGLE FORM ----------
-    // Reemplazá esta URL por TU endpoint de Google Forms (termina en /formResponse)
+    // ----- CONFIG: Google Forms -----
     const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSe8A8BI2EbXBIKLZZ9vJ8nEqytataPYvZn_0Z1uNzhCPk9jsQ/formResponse";
+    const ENTRY_APODO  = "entry.498059572";
+    const ENTRY_NUMERO = "entry.1698473162";
+    // --------------------------------
 
-    // Reemplazá estos entry IDs por los tuyos (Nombre/Apodo y Número)
- const ENTRY_APODO  = "entry.498059572";
- const ENTRY_NUMERO = "entry.1698473162";
-    // --------------------------------------------------
+    const openBtn   = document.getElementById('openBtn');
+    const overlay   = document.getElementById('leadOverlay');
+    const modalCard = document.getElementById('modalCard');
+    const cancelBtn = document.getElementById('cancelBtn');
 
     const form   = document.getElementById('leadForm');
     const apodo  = document.getElementById('apodo');
     const numero = document.getElementById('numero');
     const btn    = document.getElementById('btnEnviar');
+    const successMsg = document.getElementById('successMsg');
 
-    // Habilitar botón sólo si ambos campos tienen contenido
+    // Abrir / cerrar modal
+    const openModal = () => {
+      overlay.classList.add('active');
+      document.body.classList.add('noscroll');
+      try { fbq('track','InitiateCheckout'); } catch(e){}
+      try { gtag('event','open_modal'); } catch(e){}
+      apodo.focus();
+    };
+    const closeModal = () => {
+      overlay.classList.remove('active');
+      document.body.classList.remove('noscroll');
+      successMsg.classList.remove('show');
+      form.reset();
+      btn.disabled = true;
+    };
+
+    openBtn.addEventListener('click', openModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    // Cerrar haciendo click fuera o con ESC
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key === 'Escape' && overlay.classList.contains('active')) closeModal(); });
+
+    // Validación para habilitar botón
     const validate = () => {
       const ok = apodo.value.trim().length > 0 && numero.value.trim().length > 0;
       btn.disabled = !ok;
@@ -164,8 +200,6 @@
     };
     apodo.addEventListener('input', validate);
     numero.addEventListener('input', validate);
-
-    // Opcional: bloqueo de Enter si falta completar
     form.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && btn.disabled) e.preventDefault();
     });
@@ -173,6 +207,7 @@
     // Normalizar teléfono simple
     const normalizePhone = (str) => str.replace(/\s+/g, ' ').trim();
 
+    // Envío al Google Form + tracking
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!validate()) return;
@@ -181,20 +216,18 @@
       data.append(ENTRY_APODO, apodo.value.trim());
       data.append(ENTRY_NUMERO, normalizePhone(numero.value));
 
-      // Track en Meta/GA si querés
-      try { fbq && fbq('track', 'Lead'); } catch(e){}
-      try { gtag && gtag('event','lead_submit'); } catch(e){}
+      try { fbq('track','Lead'); } catch(_) {}
+      try { gtag('event','lead_submit'); } catch(_) {}
 
       try {
         await fetch(GOOGLE_FORM_ACTION, { method:'POST', body:data, mode:'no-cors' });
 
-        // UX: limpiar y feedback
-        form.reset();
-        btn.disabled = true;
-        alert('¡Listo! Guardamos tus datos. Te vamos a escribir por WhatsApp.');
+        // UX: mostrar éxito y cerrar a los 2s
+        successMsg.classList.add('show');
+        setTimeout(closeModal, 1800);
       } catch (err) {
         console.error(err);
-        alert('Hubo un error al enviar. Probá de nuevo en un momento.');
+        alert('Hubo un error al enviar. Probá de nuevo.');
       }
     });
   </script>
